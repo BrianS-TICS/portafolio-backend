@@ -14,8 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::resource('api/frase', CitaController::class);
+Route::get('api/frase', [CitaController::class, 'index']);
+Route::get('api/frase/{id}', [CitaController::class, 'show']);
+Route::put('api/frase/{id}', [CitaController::class, 'update']);
+Route::delete('api/frase/{id}', [CitaController::class, 'destroy']);
