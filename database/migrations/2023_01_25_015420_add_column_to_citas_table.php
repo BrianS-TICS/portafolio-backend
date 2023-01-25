@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('authors', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombre');
-            $table->string('apellidos')->nullable();
-            $table->timestamps();
+        Schema::table('citas', function (Blueprint $table) {
+            $table->foreignId('authors_id')->constrained()->onDelete('cascade');
         });
     }
 
@@ -28,6 +25,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('authors');
+        Schema::table('citas', function (Blueprint $table) {
+             $table->dropForeign('citas_authors_id_foreign');
+            $table->dropColumn('authors_id');
+        });
     }
 };

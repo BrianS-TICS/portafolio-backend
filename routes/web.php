@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AutorController;
 use App\Http\Controllers\CitaController;
+use App\Models\Autor;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +17,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('api/frase', [CitaController::class, 'index']);
+Route::post('api/frase', [CitaController::class, 'store']);
 Route::get('api/frase/{id}', [CitaController::class, 'show']);
 Route::put('api/frase/{id}', [CitaController::class, 'update']);
 Route::delete('api/frase/{id}', [CitaController::class, 'destroy']);
+
+Route::get('api/author', [AutorController::class, 'index']);
+Route::post('api/author', [AutorController::class, 'store']);
+Route::get('api/author/{id}', [AutorController::class, 'show']);
+Route::put('api/author/{id}', [AutorController::class, 'update']);
+Route::delete('api/author/{id}', [AutorController::class, 'destroy']);
