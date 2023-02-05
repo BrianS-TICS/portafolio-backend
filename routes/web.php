@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AutorController;
 use App\Http\Controllers\CitaController;
+use App\Http\Controllers\HomeController;
 use App\Models\Autor;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/', [HomeController::class, 'index']);
 
 Route::get('api/frase', [CitaController::class, 'index']);
 Route::post('api/frase', [CitaController::class, 'store']);
