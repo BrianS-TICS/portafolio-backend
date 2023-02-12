@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Author;
 use Illuminate\Http\Request;
+use App\Models\Author;
 use App\Models\Cita;
 
 class CitaController extends Controller
@@ -11,6 +11,10 @@ class CitaController extends Controller
     public function index()
     {
         $citas = Cita::all();
+
+        foreach ($citas as $cita) {
+            $cita->author;
+        }
 
         $data = array(
             'status' => 200,

@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-
 class Cita extends Model
 {
     use HasFactory;
@@ -17,7 +16,8 @@ class Cita extends Model
         'fecha_difusion'
     ];
 
-    public function autor(){
-        return $this->belongsTo(Autor::class, 'Author_id');
+    public function author()
+    {
+        return $this->belongsTo(Author::class, 'id');
     }
 }

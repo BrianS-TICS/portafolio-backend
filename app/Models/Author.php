@@ -12,4 +12,9 @@ class Author extends Model
         'nombre',
         'apellidos'
     ];
+
+    public function author()
+    {
+        return $this->hasOne(Cita::class);
+    }
 }
