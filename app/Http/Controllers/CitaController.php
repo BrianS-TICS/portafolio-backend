@@ -6,19 +6,30 @@ use Illuminate\Http\Request;
 use App\Models\Author;
 use App\Models\Cita;
 
+
 class CitaController extends Controller
 {
     public function index()
     {
         $citas = Cita::all();
+        $citaComplete = array();
+        $i = 0;
 
         foreach ($citas as $cita) {
-            $cita->author;
+            $citaComplete[$i] = ([
+                    "id_author" => $cita->author->id,
+                    "name_author" => $cita->author->nombre . " " . $cita->author->apellidos,
+                    "contenido" => $cita->contenido,
+                    "id_quote" => $cita->id,
+                    "fecha_difusion" => $cita->fecha_difusion,
+                ]
+            );
+            $i++;
         }
 
         $data = array(
             'status' => 200,
-            'data' => $citas
+            'data' => $citaComplete
         );
 
         return response()->json($data, 200);
@@ -58,9 +69,9 @@ class CitaController extends Controller
             array_push($errors, $error);
         }
 
-        $athor = Author::find($request->author_id);
+        $author = Author::find($request->author_id);
 
-        if (!$athor) {
+        if (!$author) {
             $error = 'El autor no existe';
             array_push($errors, $error);
         }
@@ -75,10 +86,19 @@ class CitaController extends Controller
         $cita->authors_id = $request->author_id;
         $cita->save();
 
+        $citaComplete = array(
+            "contenido" => $cita->contenido,
+            "fecha_difusion" => $cita->fecha_difusion,
+            "created_at" => $cita->created_at,
+            "id_quote" => $cita->id,
+            "name_author" => $author->nombre . " " . $author->apellidos,
+            "id_author" => $author->id
+        );
+
         $data = array(
             'message' => 'Se registro correctamente',
             'status' => 200,
-            'data' => $cita
+            'data' => $citaComplete
         );
 
         return response()->json($data, 200);
@@ -101,9 +121,9 @@ class CitaController extends Controller
             array_push($errors, $error);
         }
 
-        $athor = Author::find($request->author_id);
+        $author = Author::find($request->author_id);
 
-        if (!$athor) {
+        if (!$author) {
             $error = 'El autor no existe';
             array_push($errors, $error);
         }
@@ -119,10 +139,19 @@ class CitaController extends Controller
         $cita->authors_id = $request->author_id;
         $cita->update();
 
+        $citaComplete = [
+            "contenido" => $cita->contenido,
+            "fecha_difusion" => $cita->fecha_difusion,
+            "created_at" => $cita->created_at,
+            "id_quote" => $cita->id,
+            "name_author" => $author->nombre . " " . $author->apellidos,
+            "id_author" => $author->id
+        ];
+
         $data = array(
             'message' => 'Se edito correctamente',
             'status' => 200,
-            'data' => $cita
+            'data' => $citaComplete
         );
 
         return response()->json($data, 200);
@@ -140,6 +169,7 @@ class CitaController extends Controller
 
         $data = array(
             'status' => 200,
+            'data' => $id,
             'message' => 'success'
         );
 

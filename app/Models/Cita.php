@@ -18,6 +18,6 @@ class Cita extends Model
 
     public function author()
     {
-        return $this->belongsTo(Author::class, 'id');
+        return $this->belongsTo(Author::class, 'authors_id' ,'id');
     }
 }
